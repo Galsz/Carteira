@@ -21,15 +21,35 @@
     private string nome;
     private double valor;
     private string mensagem="";
+    private string CPF = "";
+    private int nconta;
+    private double limite;
+    private double tarifa;
 
     private void CriarConta()
     {
-        Carteira novaConta = new Carteira();
-        novaConta.Dono = nome;
-        novaConta.Depositar(valor);
-        dados.ListaDados.Add(novaConta);
-        mensagem = $"Carteira Criada com Sucesso ({nome} Saldo:{valor})";
-        nome = "";
-        valor = 0;
+        if (CPF.Length == 11 && valor > 19.9)
+        {
+            nconta = dados.ListaDados.Count + 1;
+
+            Carteira novaConta = new Carteira();
+            novaConta.Dono = nome;
+            novaConta.CPF = CPF;
+            novaConta.nconta = nconta;
+            novaConta.limite = valor * 0.1;
+
+
+            novaConta.Depositar(valor);
+            dados.ListaDados.Add(novaConta);
+            mensagem = $"Carteira Criada com Sucesso ({nome} Saldo:{valor})";
+            nome = "";
+            valor = 0;
+            CPF = "";
+        }
+        else
+        {
+            mensagem = "erro, verifique as credenciais";
+        }
+
     }
 }

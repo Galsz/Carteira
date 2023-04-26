@@ -14,6 +14,21 @@ namespace Contas.LibClasses
             private set;
         }
         public string Dono { get; set; }
+        public string CPF { get; set; }
+        public int nconta { get; set; }
+
+        public double limite { get; set; }
+
+
+         
+
+        public bool Sacar(double Valor, DateTime date) //parametro criado para limitar dentro do horario
+        {
+            if (!((date.Hour >= 8) && (date.Hour <= 18)))
+                return false;
+
+            return this.Sacar(Valor);
+        }
 
         public bool Sacar(double Valor)
         {
@@ -23,10 +38,19 @@ namespace Contas.LibClasses
             this.Saldo -= Valor;
             //this.Saldo = Saldo - Valor;
             return true;
+
+        }
+
+        public bool Depositar(double Valor, DateTime date) //parametro criado para limitar dentro do horario
+        {
+            if (!((date.Hour >= 8) && (date.Hour <= 18)))
+                return false;
+            return this.Depositar(Valor);
         }
 
         public bool Depositar(double Valor)
         {
+    
             this.Saldo += Valor;
             return true;
         }
