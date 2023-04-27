@@ -4,6 +4,8 @@
 @if (carteira is not null)
 {
     <h1>Conta: @carteira.Dono</h1>
+    <h2>Numero da conta: @carteira.nconta</h2>
+    <h2>Limite da conta: @carteira.limite</h2>
 
     <button @onclick="() => EscolherOperacao(1)">Saldo </button>
     <button @onclick="() => EscolherOperacao(2)">Sacar </button>

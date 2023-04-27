@@ -9,6 +9,9 @@
 <h5>Valor Deposito Inicial:</h5>
 
 <input type="text" @bind=valor/>
+<h5>CPF:</h5>
+
+<input type="text" @bind=CPF/>
 <br><br>
 <button class="btn btn-primary" @onclick="CriarConta">
     Criar Conta</button>
@@ -24,7 +27,7 @@
     private string CPF = "";
     private int nconta;
     private double limite;
-    private double tarifa;
+
 
     private void CriarConta()
     {

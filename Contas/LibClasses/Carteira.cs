@@ -19,7 +19,16 @@ namespace Contas.LibClasses
 
         public double limite { get; set; }
 
+        private int ultimomes { get; set; } = 0;
+        public void CobrarTarifa(DateTime date)
+        {
+            if (date.Month == ultimomes)
+                return;
 
+            Saldo -= 19.90;
+
+            ultimomes = date.Month;
+        }
          
 
         public bool Sacar(double Valor, DateTime date) //parametro criado para limitar dentro do horario
@@ -32,7 +41,8 @@ namespace Contas.LibClasses
 
         public bool Sacar(double Valor)
         {
-            if (Valor > this.Saldo)
+
+            if (Valor > (this.Saldo + this.limite))
                 return false;
 
             this.Saldo -= Valor;

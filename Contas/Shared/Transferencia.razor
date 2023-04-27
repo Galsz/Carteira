@@ -9,6 +9,16 @@
 <p>Valor da Transferencia</p>
 <input type="number" @bind=ValorTransferencia/>
 <br><br>
+    @if (ValorTransferencia > 1000)
+    {
+        <p>Informe os tres primeiros digitos do seu CPF</p>
+        <p>CPF:</p>
+        <input type="text" maxlenght="3" @bind=nCPF />
+        
+    }
+
+
+
 <button @onclick=Transferir > Confirma Transferencia</button>
 }
 
@@ -30,6 +40,8 @@
     {
        <h1>Erro! não foi possivel realizar está operação</h1>  
     }
+
+
 }
 
 @code {
@@ -38,11 +50,13 @@
     bool? transferenciaOk = null;
     string contaDestino;
     double ValorTransferencia;
+    string nCPF;
 
     public void Transferir()
     {
         Carteira destino =  dados.ListaDados.FirstOrDefault(c => c.Dono == contaDestino);
-        if (destino is not null)
+
+        if (destino is not null && nCPF == Conta.CPF.Substring(0, 3))
         {
             Conta.Transferir(destino, ValorTransferencia);
             transferenciaOk = true;
