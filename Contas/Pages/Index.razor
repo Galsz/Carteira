@@ -10,8 +10,42 @@
 <input type="datetime" @bind=dados.DataDoSistema></input>
 
 <br>
-<button>Cobrar Tarifas (Todos as Contas) </button>
+<button @onclick="Tarifa">Cobrar Tarifas (Todas as Contas) </button>
+
+@if (TarifaOk is not null)
+{
+    @if (TarifaOk == true)
+    {
+        <h1>Tarifa cobrada com sucesso!</h1>
+    }
+    else
+    {
+        <h1>Erro! A Tarifa já foi cobrada esse mês.</h1>
+    }
+}
 
 @code{
+    bool? TarifaOk = null;
+
+    public void Tarifa()
+    {
+        if (dados.ListaDados is not null)
+        {
+            foreach (var item in dados.ListaDados)
+            {
+                if ((item.Tarifa.Month < 0) || (item.Tarifa.Month < dados.DataDoSistema.Month))
+                {
+                    item.CobrarTarifa(dados.DataDoSistema);
+                    continue;
+                    TarifaOk = true;
+                }
+                else
+                {
+                    TarifaOk = false;
+                }
+
+            }
+        }
+    }
 
 }

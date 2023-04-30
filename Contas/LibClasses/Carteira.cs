@@ -19,15 +19,16 @@ namespace Contas.LibClasses
 
         public double limite { get; set; }
 
-        private int ultimomes { get; set; } = 0;
-        public void CobrarTarifa(DateTime date)
+        public DateTime Tarifa { get; set; }
+
+        public bool CobrarTarifa(DateTime date)
         {
-            if (date.Month == ultimomes)
-                return;
+      
+            this.Saldo -= 19.90;
 
-            Saldo -= 19.90;
+            this.Tarifa = date;
 
-            ultimomes = date.Month;
+            return true;
         }
          
 
